@@ -4,6 +4,8 @@
 backend/**/bin/
 backend/**/obj/
 backend/**/.vs/
+backend/**/BuildHost-net472/
+backend/**/BuildHost-netcore/
 backend/**/*.user
 backend/**/*.suo
 backend/**/*.cache

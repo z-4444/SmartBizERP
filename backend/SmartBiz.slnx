@@ -3,4 +3,5 @@
   <Project Path="SmartBiz.Application/SmartBiz.Application.csproj" Id="5adefae9-793e-4958-ad91-51f249c8e216" />
   <Project Path="SmartBiz.Core/SmartBiz.Core.csproj" Id="b916c102-1a39-4aba-9141-48104886cce8" />
   <Project Path="SmartBiz.Infrastructure/SmartBiz.Infrastructure.csproj" Id="b40fa6d0-d7a3-4f61-b07f-6c3c9a2e38dc" />
+  <Project Path="SmartBiz.Tests/SmartBiz.Tests.csproj" Id="30e2b96c-fa86-4c4a-acb3-6d11050fbb50" />
 </Solution>
