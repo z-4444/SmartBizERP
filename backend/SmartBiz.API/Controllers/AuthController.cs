@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using SmartBiz.Application.Services;
@@ -24,5 +25,7 @@ namespace SmartBiz.API.Controllers
 
             return Ok(new { token });
         }
+
+
     }
 }

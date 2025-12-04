@@ -7,16 +7,16 @@ namespace SmartBiz.Core.Entities.Enums
 {
     public enum RoleType
     {
-        [Description("Customer")] // Limited access: view/place orders
+        [Description("Customer")]
         Customer = 1,
 
-        [Description("Staff")] // Process orders, update inventory
+        [Description("Staff")]
         Staff = 2,
 
-        [Description("Manager")] // Approve orders, view reports
+        [Description("Manager")] 
         Manager = 3,
 
-        [Description("Admin")] // Full access: manage users, products
+        [Description("Admin")]
         Admin = 4
     }
 }

@@ -1,0 +1,151 @@
+<div class="auth-container">
+    <div class="auth-wrapper">
+        <!-- Left Side - Form -->
+        <div class="auth-form-section">
+            <div class="auth-form-container">
+                <!-- Logo -->
+                <div class="auth-logo">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">SmartBiz</span>
+                </div>
+
+                <!-- Header -->
+                <div class="auth-header">
+                    <h1 class="auth-title">Welcome Back</h1>
+                    <p class="auth-subtitle">Sign in to your account to continue</p>
+                </div>
+
+                <!-- Error Message -->
+                @if (errorMessage) {
+                <div class="error-alert">
+                    <span class="error-icon">⚠️</span>
+                    <span>{{ errorMessage }}</span>
+                </div>
+                }
+
+                <!-- Login Form -->
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="email" formControlName="email" class="form-input"
+                                [class.error]="email?.invalid && email?.touched" placeholder="you@example.com" />
+                        </div>
+                        @if (email?.invalid && email?.touched) {
+                        <div class="error-message">
+                            @if(email?.errors?.['required']) {
+                            <span>Email is required</span>
+                            }
+                            @if(email?.errors?.['email']) {
+                            <span>Please enter a valid email</span>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                                class="form-input" [class.error]="password?.invalid && password?.touched"
+                                placeholder="Enter your password" />
+                            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                                {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+                            </button>
+                        </div>
+                        @if (password?.invalid && password?.touched) {
+                        <div class="error-message">
+                            @if(password?.errors?.['required']) {
+                            <span>Password is required</span>
+                            }
+                            @if(password?.errors?.['minlength']) {
+                            <span>Password must be at least 6 characters</span>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" formControlName="rememberMe" class="checkbox-input" />
+                            <span class="checkbox-text">Remember me</span>
+                        </label>
+                        <a routerLink="/forgot-password" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-button" [disabled]="isLoading" [class.loading]="isLoading">
+                        @if(!isLoading) {
+                        <span>Sign In</span>
+                        }
+                        @if(isLoading) {
+                        <span class="loading-spinner">
+                            <span class="spinner"></span>
+                            Signing in...
+                        </span>
+                        }
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span class="divider-text">OR</span>
+                </div>
+
+                <!-- Social Login -->
+                <div class="social-login">
+                    <button type="button" class="social-button google">
+                        <span class="social-icon">🔍</span>
+                        Continue with Google
+                    </button>
+                    <button type="button" class="social-button microsoft">
+                        <span class="social-icon">🪟</span>
+                        Continue with Microsoft
+                    </button>
+                </div>
+
+                <!-- Sign Up Link -->
+                <div class="auth-footer">
+                    <p>
+                        Don't have an account?
+                        <a routerLink="/register" class="auth-link">Sign up for free</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Banner -->
+        <div class="auth-banner">
+            <div class="banner-content">
+                <h2 class="banner-title">Manage Your Business Smarter</h2>
+                <p class="banner-description">
+                    Join thousands of businesses using SmartBiz to streamline operations,
+                    track inventory, manage sales, and grow their success.
+                </p>
+                <div class="banner-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Real-time inventory tracking</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Comprehensive sales analytics</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Customer management tools</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Detailed business reports</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

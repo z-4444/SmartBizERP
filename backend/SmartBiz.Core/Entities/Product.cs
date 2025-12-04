@@ -26,8 +26,13 @@ namespace SmartBiz.Core.Entities
         public string Category { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public bool IsActive { get; set; } = true;
+        [MaxLength(500)]
+        public string ImageUrl { get; set; } = string.Empty;
 
         // Navigation
+        public Inventory? Inventory { get; set; }
+
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public ICollection<InventoryTransaction> InventoryTransactions { get; set; } = new List<InventoryTransaction>();
     }

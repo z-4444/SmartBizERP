@@ -1,0 +1,202 @@
+<div class="auth-container">
+    <div class="auth-wrapper">
+        <!-- Left Side - Banner -->
+        <div class="auth-banner">
+            <div class="banner-content">
+                <h2 class="banner-title">Start Your Business Journey</h2>
+                <p class="banner-description">
+                    Join thousands of successful businesses using SmartBiz to manage operations,
+                    increase efficiency, and drive growth.
+                </p>
+                <div class="banner-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">10,000+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">Uptime</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.9/5</div>
+                        <div class="stat-label">User Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Form -->
+        <div class="auth-form-section">
+            <div class="auth-form-container">
+                <!-- Logo -->
+                <div class="auth-logo">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">SmartBiz</span>
+                </div>
+
+                <!-- Header -->
+                <div class="auth-header">
+                    <h1 class="auth-title">Create Your Account</h1>
+                    <p class="auth-subtitle">Start managing your business smarter today</p>
+                </div>
+
+                <!-- Error Message -->
+                <div class="error-alert" *ngIf="errorMessage">
+                    <span class="error-icon">⚠️</span>
+                    <span>{{ errorMessage }}</span>
+                </div>
+
+                <!-- Register Form -->
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+                    <!-- Full Name Field -->
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="fullName" formControlName="fullName" class="form-input"
+                                [class.error]="fullName?.invalid && fullName?.touched" placeholder="John Doe" />
+                        </div>
+                        @if(fullName?.invalid && fullName?.touched){
+                        <div class="error-message">
+                            @if (fullName?.errors?.['required']) {
+                            <span>Full name is required</span>
+                            }
+                            @if (fullName?.errors?.['minlength']) {
+                            <span>Name must be at least 3 characters</span>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="email" formControlName="email" class="form-input"
+                                [class.error]="email?.invalid && email?.touched" placeholder="you@example.com" />
+                        </div>
+                        @if (email?.invalid && email?.touched) {
+                        <div class="error-message">
+                            @if (email?.errors?.['required']) {
+                            <span>Email is required</span>
+                            }
+                            @if (email?.errors?.['email']) {
+                            <span>Please enter a valid email</span>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                                class="form-input" [class.error]="password?.invalid && password?.touched"
+                                placeholder="Create a strong password" />
+                            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                                {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+                            </button>
+                        </div>
+                        @if (password?.invalid && password?.touched) {
+                        <div class="error-message">
+                            @if (password?.errors?.['required']) {
+                            <span>Password is required</span>
+                            }
+                            @if (password?.errors?.['minlength']) {
+                            <span>Password must be at least 6 characters</span>
+                            }
+                            @if (password?.errors?.['passwordStrength']) {
+                            <span>Password must contain uppercase, lowercase, and number</span>
+                            }
+                        </div>
+                        }
+
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+                                formControlName="confirmPassword" class="form-input"
+                                [class.error]="(confirmPassword?.invalid && confirmPassword?.touched) || (registerForm.errors?.['passwordMismatch'] && confirmPassword?.touched)"
+                                placeholder="Confirm your password" />
+                            <button type="button" class="password-toggle" (click)="toggleConfirmPasswordVisibility()">
+                                {{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}
+                            </button>
+                        </div>
+                        @if (confirmPassword?.invalid && confirmPassword?.touched) {
+                        <div class="error-message">
+                            @if (confirmPassword?.errors?.['required']) {
+                            <span>Please confirm your password</span>
+                            }
+                            @if (registerForm.errors?.['passwordMismatch'] && !confirmPassword?.errors?.['required']) {
+                            <span>Passwords do not match</span>
+                            }
+                        </div>
+                        }
+
+                    </div>
+
+                    <!-- Terms Agreement -->
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" formControlName="agreeToTerms" class="checkbox-input" />
+                            <span class="checkbox-text">
+                                I agree to the <a routerLink="/terms" class="link">Terms of Service</a> and
+                                <a routerLink="/privacy" class="link">Privacy Policy</a>
+                            </span>
+                        </label>
+                        @if (agreeToTerms?.invalid && agreeToTerms?.touched) {
+                        <div class="error-message">
+                            <span>You must agree to the terms and conditions</span>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-button" [disabled]="isLoading" [class.loading]="isLoading">
+                        @if (!isLoading) {
+                        <span>Create Account</span>
+                        }
+                        @if (isLoading) {
+                        <span class="loading-spinner">
+                            <span class="spinner"></span>
+                            Creating account...
+                        </span>
+                        }
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span class="divider-text">OR</span>
+                </div>
+
+                <!-- Social Register -->
+                <div class="social-login">
+                    <button type="button" class="social-button google">
+                        <span class="social-icon">🔍</span>
+                        Sign up with Google
+                    </button>
+                    <button type="button" class="social-button microsoft">
+                        <span class="social-icon">🪟</span>
+                        Sign up with Microsoft
+                    </button>
+                </div>
+
+                <!-- Sign In Link -->
+                <div class="auth-footer">
+                    <p>
+                        Already have an account?
+                        <a routerLink="/login" class="auth-link">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

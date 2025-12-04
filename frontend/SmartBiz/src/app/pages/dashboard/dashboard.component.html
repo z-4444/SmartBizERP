@@ -1,0 +1,176 @@
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <div class="dashboard-header">
+        <div class="header-content">
+            <div class="welcome-section">
+                <h1 class="welcome-title">{{ getGreeting() }}, {{ userName }}! 👋</h1>
+                <p class="welcome-subtitle">{{ businessName }} • {{ currentDate | date:'EEEE, MMMM d, y' }}</p>
+            </div>
+            <div class="role-badge" [ngClass]="getRoleBadgeClass()">
+                <span class="role-icon">{{ userRole === 'admin' ? '👑' : userRole === 'manager' ? '👨‍💼' : '👨‍💻'
+                    }}</span>
+                <span class="role-text">{{ userRole | titlecase }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="quick-stats-section">
+        @for (stat of quickStats; track $index) {
+        <div class="stat-card" [routerLink]="stat.route">
+            <div class="stat-icon">{{ stat.icon }}</div>
+            <div class="stat-content">
+                <div class="stat-label">{{ stat.label }}</div>
+                <div class="stat-value">{{ stat.value }}</div>
+                <div class="stat-change" [ngClass]="'change-' + stat.changeType">
+                    <span class="change-indicator">{{ stat.changeType === 'positive' ? '↑' : stat.changeType ===
+                        'negative' ? '↓' : '→' }}</span>
+                    {{ stat.change }}
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard-grid">
+        <!-- Left Column -->
+        <div class="dashboard-left">
+            <!-- Quick Actions -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Quick Actions</h2>
+                </div>
+                <div class="quick-actions-grid">
+                    <a *ngFor="let action of getFilteredQuickActions()" [routerLink]="action.route"
+                        class="quick-action-card" [style.border-color]="action.color">
+                        <div class="action-icon" [style.background-color]="action.color + '20'"
+                            [style.color]="action.color">
+                            {{ action.icon }}
+                        </div>
+                        <div class="action-content">
+                            <div class="action-label">{{ action.label }}</div>
+                            <div class="action-description">{{ action.description }}</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sales Chart -->
+            <div class="dashboard-card" *ngIf="userRole === 'admin' || userRole === 'manager'">
+                <div class="card-header">
+                    <h2 class="card-title">Weekly Sales Overview</h2>
+                    <button class="card-action-btn" routerLink="/reports">View Details</button>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-bars">
+                        <div class="chart-bar" *ngFor="let value of salesData.values; let i = index">
+                            <div class="bar-tooltip">Rs. {{ value | number }}</div>
+                            <div class="bar-fill" [style.height.%]="getBarHeight(value)"></div>
+                            <div class="bar-label">{{ salesData.labels[i] }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Low Stock Alert -->
+            <div class="dashboard-card" *ngIf="userRole === 'admin' || userRole === 'manager'">
+                <div class="card-header">
+                    <h2 class="card-title">Low Stock Alert</h2>
+                    <span class="alert-badge">{{ lowStockItems.length }} Items</span>
+                </div>
+                <div class="low-stock-list">
+                    @for (item of lowStockItems; track $index) {
+                    <div class="low-stock-item">
+                        <div class="item-info">
+                            <div class="item-name">{{ item.name }}</div>
+                            <div class="item-category">{{ item.category }}</div>
+                        </div>
+                        <div class="item-stock">
+                            <div class="stock-current warning">{{ item.currentStock }} left</div>
+                            <div class="stock-min">Min: {{ item.minStock }}</div>
+                        </div>
+                    </div>
+                    <button class="view-all-btn" routerLink="/inventory">
+                        View All Inventory →
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="dashboard-right">
+            <!-- Recent Activity -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Activity</h2>
+                </div>
+                <div class="activity-list">
+                    @for (activity of recentActivities; track $index) {
+                    <div class="activity-item" [ngClass]="'activity-' + activity.type">
+                        <div class="activity-icon-wrapper">
+                            <span class="activity-icon">{{ activity.icon }}</span>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">{{ activity.title }}</div>
+                            <div class="activity-description">{{ activity.description }}</div>
+                            <div class="activity-time">{{ activity.time }}</div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Module Access Guide (For Employees) -->
+            @if (userRole === 'employee') {
+            <div class="dashboard-card info-card">
+                <div class="card-header">
+                    <h2 class="card-title">Your Access Level</h2>
+                </div>
+                <div class="access-info">
+                    <div class="access-section">
+                        <h3 class="access-subtitle">✓ You Can:</h3>
+                        <ul class="access-list allowed">
+                            <li>View products and customers</li>
+                            <li>Create new sales orders</li>
+                            <li>Update order status</li>
+                            <li>View limited reports</li>
+                        </ul>
+                    </div>
+                    <div class="access-section">
+                        <h3 class="access-subtitle">✗ You Cannot:</h3>
+                        <ul class="access-list restricted">
+                            <li>Delete products or customers</li>
+                            <li>Modify user accounts</li>
+                            <li>Access admin settings</li>
+                            <li>View financial reports</li>
+                        </ul>
+                    </div>
+                    <p class="access-note">Contact your manager or admin for additional access.</p>
+                </div>
+            </div>
+            }
+            <!-- Quick Tips -->
+            <div class="dashboard-card tips-card">
+                <div class="card-header">
+                    <h2 class="card-title">💡 Quick Tips</h2>
+                </div>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <span class="tip-icon">📦</span>
+                        <span class="tip-text">Check low stock items daily to avoid stockouts</span>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">📊</span>
+                        <span class="tip-text">Review weekly reports to track business performance</span>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">👥</span>
+                        <span class="tip-text">Keep customer information updated for better service</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

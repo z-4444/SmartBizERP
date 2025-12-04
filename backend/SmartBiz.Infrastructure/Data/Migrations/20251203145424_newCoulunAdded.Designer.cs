@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartBiz.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using SmartBiz.Infrastructure.Data;
 namespace SmartBiz.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(SmartBizDbContext))]
-    partial class SmartBizDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251203145424_newCoulunAdded")]
+    partial class newCoulunAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,28 +24,6 @@ namespace SmartBiz.Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("SmartBiz.Core.Entities.Inventory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("Inventory");
-                });
 
             modelBuilder.Entity("SmartBiz.Core.Entities.InventoryTransaction", b =>
                 {
@@ -251,17 +232,6 @@ namespace SmartBiz.Infrastructure.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SmartBiz.Core.Entities.Inventory", b =>
-                {
-                    b.HasOne("SmartBiz.Core.Entities.Product", "Product")
-                        .WithOne("Inventory")
-                        .HasForeignKey("SmartBiz.Core.Entities.Inventory", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("SmartBiz.Core.Entities.InventoryTransaction", b =>
                 {
                     b.HasOne("SmartBiz.Core.Entities.Product", "Product")
@@ -328,8 +298,6 @@ namespace SmartBiz.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("SmartBiz.Core.Entities.Product", b =>
                 {
-                    b.Navigation("Inventory");
-
                     b.Navigation("InventoryTransactions");
 
                     b.Navigation("OrderItems");

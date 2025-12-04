@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartBiz.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using SmartBiz.Infrastructure.Data;
 namespace SmartBiz.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(SmartBizDbContext))]
-    partial class SmartBizDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251203152548_newtableInventoryadded")]
+    partial class newtableInventoryadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

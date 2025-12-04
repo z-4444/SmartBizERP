@@ -19,6 +19,7 @@ namespace SmartBiz.Infrastructure.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<InventoryTransaction> InventoryTransactions { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +33,8 @@ namespace SmartBiz.Infrastructure.Data
             modelBuilder.Entity<Order>()
                 .Property(o => o.Status)
                 .HasConversion<string>();
+
+            modelBuilder.Entity<InventoryTransaction>().Property(it => it.Type).HasConversion<string>();
 
             // Configure User relationships
             modelBuilder.Entity<User>()
@@ -76,8 +79,11 @@ namespace SmartBiz.Infrastructure.Data
                 .HasForeignKey(it => it.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Global query filters (optional: e.g., soft delete if you add IsDeleted later)
-            // modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Inventory)      // Product has one Inventory
+                .WithOne(i => i.Product)       // Inventory has one Product
+                .HasForeignKey<Inventory>(i => i.ProductId)  // FK is in Inventory table
+                .OnDelete(DeleteBehavior.Cascade);  // optional, set your preferred delete behavior
 
         }
 

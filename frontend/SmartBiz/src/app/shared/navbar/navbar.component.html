@@ -1,0 +1,66 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+    <div class="navbar-container">
+        <!-- Logo -->
+        <div class="navbar-brand">
+            <a routerLink="/" class="brand-link">
+                <span class="brand-icon">
+                    <!-- Reference the logo directly from the root public folder -->
+                    <img src="/logo5.png" alt="SmartBiz Logo" width="136px">
+                </span>
+                <!-- <span class="brand-icon">🚀</span>
+                <span class="brand-name">SmartBiz</span> -->
+            </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <ul class="navbar-menu desktop-menu">
+            @for (link of navLinks; track $index) {
+            <li class="nav-item">
+                <a [routerLink]="link.route" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: link.route === '/'}" class="nav-link">
+                    <span class="nav-icon">{{ link.icon }}</span>
+                    <span class="nav-label">{{ link.label }}</span>
+                </a>
+            </li>
+            }
+
+        </ul>
+
+        <!-- Auth Buttons -->
+        <div class="navbar-actions desktop-actions">
+            @if(!isAuthenticated){
+            <button class="btn-outline" routerLink="/login">Login</button>
+            <button class="btn-primary" routerLink="/register">Sign Up</button>
+            }@else{
+            <button class="btn-outline" (click)="logout()">Logout</button>
+            }
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+        <ul class="mobile-nav-list">
+            @for (link of navLinks; track $index) {
+            <li class="mobile-nav-item">
+                <a [routerLink]="link.route" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: link.route === '/'}" class="mobile-nav-link"
+                    (click)="closeMobileMenu()">
+                    <span class="nav-icon">{{ link.icon }}</span>
+                    <span class="nav-label">{{ link.label }}</span>
+                </a>
+            </li>
+            }
+        </ul>
+        <div class="mobile-actions">
+            <button class="btn-outline btn-block" routerLink="/login" (click)="closeMobileMenu()">Login</button>
+            <button class="btn-primary btn-block" routerLink="/register" (click)="closeMobileMenu()">Sign Up</button>
+        </div>
+    </div>
+</nav>

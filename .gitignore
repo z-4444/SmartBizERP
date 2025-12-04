@@ -14,10 +14,48 @@ backend/**/*.db
 # ==========================
 # Angular frontend
 # ==========================
-frontend/node_modules/
-frontend/dist/
-frontend/.angular/
-frontend/**/*.env
+
+frontend/SmartBiz/dist
+frontend/SmartBiz/tmp
+frontend/SmartBiz/out-tsc
+frontend/SmartBiz/bazel-out
+
+# Node
+frontend/SmartBiz/node_modules
+frontend/SmartBiz/npm-debug.log
+frontend/SmartBiz/yarn-error.log
+
+# IDEs and editors
+frontend/SmartBiz/.idea/
+frontend/SmartBiz/.project
+frontend/SmartBiz/.classpath
+frontend/SmartBiz/.c9/
+frontend/SmartBiz/*.launch
+frontend/SmartBiz/.settings/
+frontend/SmartBiz/*.sublime-workspace
+
+# Visual Studio Code
+frontend/SmartBiz/.vscode/*
+frontend/SmartBiz/!.vscode/settings.json
+frontend/SmartBiz/!.vscode/tasks.json
+frontend/SmartBiz/!.vscode/launch.json
+frontend/SmartBiz/!.vscode/extensions.json
+frontend/SmartBiz/.history/*
+
+# Miscellaneous
+frontend/SmartBiz/.angular/cache
+frontend/SmartBiz.sass-cache/
+frontend/SmartBiz/connect.lock
+frontend/SmartBiz/coverage
+/libpeerconnection.log
+frontend/SmartBiz/testem.log
+frontend/SmartBiz/typings
+__screenshots__/
+
+# System files
+frontend/SmartBiz/.DS_Store
+frontend/SmartBiz/Thumbs.db
+
 
 # ==========================
 # General

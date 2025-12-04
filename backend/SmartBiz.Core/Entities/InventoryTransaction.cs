@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartBiz.Core.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -15,7 +16,7 @@ namespace SmartBiz.Core.Entities
 
         public int QuantityChange { get; set; } =0;
 
-        public string Type { get; set; } = "Restock"; // e.g., "Restock", "Sale", "Adjustment"
+        public InventoryTransactionType Type { get; set; } = InventoryTransactionType.Restock; // e.g., "Restock", "Sale", "Adjustment"
 
         [MaxLength(200)]
         public string Notes { get; set; } = string.Empty;

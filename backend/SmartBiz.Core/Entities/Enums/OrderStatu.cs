@@ -22,4 +22,11 @@ namespace SmartBiz.Core.Entities.Enums
         [Description("Cancelled")]
         Cancelled = 5
     }
+
+    public enum InventoryTransactionType
+    {
+        Restock,
+        Sale,
+        Adjustment
+    }
 }

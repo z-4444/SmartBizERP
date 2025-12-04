@@ -1,0 +1,65 @@
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Main Footer Content -->
+        <div class="footer-content">
+            <!-- Brand Section -->
+            <div class="footer-brand">
+                <div class="brand-logo">
+                    <span class="brand-icon">🚀</span>
+                    <span class="brand-name">SmartBiz</span>
+                </div>
+                <p class="brand-description">
+                    Empowering small businesses with intelligent management solutions.
+                    Streamline your operations and grow your business with confidence.
+                </p>
+                <div class="social-links">
+                    <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer"
+                        class="social-link" [attr.aria-label]="social.name">
+                        <span>{{ social.icon }}</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <div class="footer-section" *ngFor="let section of footerSections">
+                    <h3 class="footer-title">{{ section.title }}</h3>
+                    <ul class="footer-list">
+                        <li *ngFor="let link of section.links">
+                            <a [routerLink]="link.route" class="footer-link">{{ link.label }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3 class="newsletter-title">Stay Updated</h3>
+                <p class="newsletter-description">Subscribe to our newsletter for tips, updates, and exclusive offers.
+                </p>
+            </div>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p class="copyright">
+                    © {{ currentYear }} SmartBiz. All rights reserved.
+                </p>
+                <div class="footer-bottom-links">
+                    <a routerLink="/privacy" class="bottom-link">Privacy</a>
+                    <span class="separator">•</span>
+                    <a routerLink="/terms" class="bottom-link">Terms</a>
+                    <span class="separator">•</span>
+                    <a routerLink="/cookies" class="bottom-link">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

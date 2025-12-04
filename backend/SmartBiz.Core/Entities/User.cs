@@ -29,6 +29,7 @@ namespace SmartBiz.Core.Entities
 
         public Guid RoleId { get; set; }
         public Role Role { get; set; } = null!;
+        public DateTime? LastLogin { get; set; } = null;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
