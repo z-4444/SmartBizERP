@@ -1,6 +1,39 @@
 # SmartBiz ERP
 
-SmartBiz ERP is a modern, lightweight, and fast ERP system designed to help small businesses manage their day-to-day operations from a single web platform. It simplifies inventory, sales, customers, orders, suppliers, expenses, and reporting—making business management easier and more efficient.
+SmartBiz ERP is a full-stack business management application built with **ASP.NET Core, Angular, Entity Framework Core, and SQL Server**.
+
+It brings inventory, sales, orders, customers, suppliers, expenses, reporting, and role-based access control into a single application designed for small and growing businesses.
+
+---
+## ✨ Highlights
+
+- Full-stack architecture with ASP.NET Core and Angular
+- JWT authentication and role-based authorization
+- Inventory and stock management
+- Sales and order processing
+- Customer and supplier management
+- Expense tracking
+- Business reporting
+- Entity Framework Core with SQL Server
+- Docker-ready backend
+
+---
+
+## 🛠 Tech Stack
+
+### **Frontend**
+- Angular  
+- TypeScript  
+
+
+### **Backend**
+- .NET 8 Web API  
+- Entity Framework Core  
+- SQL Server  
+
+### **DevOps**
+- Docker support  
+- CI/CD ready  
 
 ---
 
@@ -86,21 +119,25 @@ Any small business that wants a simple, fast, and powerful ERP system.
 - Protected API endpoints  
 
 ---
+## 🏗️ Architecture
 
-## 🛠 Tech Stack
+SmartBiz ERP uses a separate frontend and backend architecture:
 
-### **Frontend**
-- Angular  
-- TypeScript  
+- **Frontend:** Angular + TypeScript
+- **Backend:** ASP.NET Core Web API
+- **Data Access:** Entity Framework Core
+- **Database:** SQL Server
+- **Authentication:** JWT
+- **API Communication:** REST
 
-
-### **Backend**
-- .NET 8 Web API  
-- Entity Framework Core  
-- SQL Server  
-
-### **DevOps**
-- Docker support  
-- CI/CD ready  
+Angular Client
+      ↓
+ASP.NET Core Web API
+      ↓
+Application / Business Logic
+      ↓
+Entity Framework Core
+      ↓
+SQL Server
 
 ---
